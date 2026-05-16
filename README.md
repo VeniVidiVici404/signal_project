@@ -64,6 +64,11 @@ java -jar target/cardio_generator-1.0-SNAPSHOT.jar --patient-count 100 --output 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Week 2: UML Modeling
+For Project Part 2, four subsystems of the Cardiovascular Health Monitoring System were modeled to establish a clean, modular architecture. 
+
+You can view the diagrams and read the design rationale for each system in the [UML Models folder](./uml_models).
+
 ## Project Members
 
 - Student ID: 6346179
