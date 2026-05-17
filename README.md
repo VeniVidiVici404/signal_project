@@ -69,6 +69,14 @@ For Project Part 2, four subsystems of the Cardiovascular Health Monitoring Syst
 
 You can view the diagrams and read the design rationale for each system in the [UML Models folder](./uml_models).
 
+## Week 3: Testing and Code Coverage
+For Project Part 3, unit tests were implemented for the data management and alert generation systems using JUnit. Below is the JaCoCo code coverage report verifying the tests.
+
+![JaCoCo Coverage Report](./reports/jacoco_report.png)
+
+**Code Coverage Explanation:**
+As shown in the JaCoCo report, the `com.alerts` and `com.data_management` packages have high coverage because unit tests were thoroughly implemented for the `AlertGenerator`, `DataStorage`, and `FileDataReader` classes. The `com.cardio_generator` packages currently show 0% coverage. These were intentionally left untested because they belong to the Week 1 simulator logic, and the scope of Project Part 3 was strictly limited to testing the new patient storage and alert generation systems.
+
 ## Project Members
 
 - Student ID: 6346179

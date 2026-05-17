@@ -45,14 +45,27 @@ public class Patient {
      * specified time range.
      * The method filters records based on the start and end times provided.
      *
-     * @param startTime the start of the time range, in milliseconds since UNIX
-     *                  epoch
+     * @param startTime the start of the time range, in milliseconds since UNIX epoch
      * @param endTime   the end of the time range, in milliseconds since UNIX epoch
-     * @return a list of PatientRecord objects that fall within the specified time
-     *         range
+     * @return a list of PatientRecord objects that fall within the specified time range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        return patientRecords;
-        // TODO Implement and test this method
+        // Create a new list to hold the records that match our time filter
+        List<PatientRecord> filteredRecords = new ArrayList<>();
+
+        // Loop through all records stored for this patient
+        for (PatientRecord record : patientRecords) {
+            // Check if the record's timestamp falls within the specified window
+            if (record.getTimestamp() >= startTime && record.getTimestamp() <= endTime) {
+                filteredRecords.add(record);
+            }
+        }
+
+        // Return only the filtered records
+        return filteredRecords;
+    }
+
+    public int getPatientId() { 
+        return patientId;
     }
 }
