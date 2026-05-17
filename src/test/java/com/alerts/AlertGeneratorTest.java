@@ -17,7 +17,7 @@ class AlertGeneratorTest {
     @BeforeEach
     void setUp() {
         // This runs before every single test to give us a fresh slate
-        storage = new DataStorage();
+        storage = DataStorage.getInstance();
         alertGenerator = new AlertGenerator(storage);
         testPatient = new Patient(1);
     }
@@ -31,7 +31,7 @@ class AlertGeneratorTest {
         
         // We expect exactly 1 alert to be generated
         assertEquals(1, alertGenerator.getTriggeredAlerts().size());
-        assertEquals("Critical Systolic BP", alertGenerator.getTriggeredAlerts().get(0).getCondition());
+        assertEquals("[PRIORITY] Critical Systolic BP", alertGenerator.getTriggeredAlerts().get(0).getCondition());
     }
 
     @Test
@@ -59,13 +59,11 @@ class AlertGeneratorTest {
 
     @Test
     void testHypotensiveHypoxemiaAlert() {
-        // Combine low BP and low oxygen at the exact same time
         testPatient.addRecord(85.0, "SystolicBloodPressure", 1000L);
         testPatient.addRecord(90.0, "Saturation", 1000L);
         
         alertGenerator.evaluateData(testPatient);
         
-        // It should trigger the critical threshold alerts AND the combined condition alert
         boolean hasCombinedAlert = alertGenerator.getTriggeredAlerts().stream()
             .anyMatch(a -> a.getCondition().equals("Hypotensive Hypoxemia"));
             

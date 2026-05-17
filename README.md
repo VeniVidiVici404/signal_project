@@ -77,6 +77,24 @@ For Project Part 3, unit tests were implemented for the data management and aler
 **Code Coverage Explanation:**
 As shown in the JaCoCo report, the `com.alerts` and `com.data_management` packages have high coverage because unit tests were thoroughly implemented for the `AlertGenerator`, `DataStorage`, and `FileDataReader` classes. The `com.cardio_generator` packages currently show 0% coverage. These were intentionally left untested because they belong to the Week 1 simulator logic, and the scope of Project Part 3 was strictly limited to testing the new patient storage and alert generation systems.
 
+## Week 4: Software Architecture & Design Patterns
+For Project Part 4, the cardiovascular monitoring system was refactored to improve scalability, maintainability, and code organization. This was achieved by implementing several core Gang of Four (GoF) Design Patterns:
+
+* **Singleton Pattern:** Applied to the `DataStorage` and `HealthDataSimulator` classes to guarantee that only one global instance of patient data and the simulation engine exists at runtime, preventing memory overlap and test pollution.
+* **Strategy Pattern:** Extracted complex medical evaluation logic from the `AlertGenerator` into dedicated, modular classes (`BloodPressureStrategy`, `HeartRateStrategy`, `OxygenSaturationStrategy`) that all implement a common `AlertStrategy` interface.
+* **Factory Method Pattern:** Implemented an `AlertFactory` to abstract and centralize the instantiation of `Alert` objects, allowing for flexible alert creation without hardcoding dependencies within the strategies.
+* **Decorator Pattern:** Created an abstract `AlertDecorator` along with concrete `PriorityAlertDecorator` and `RepeatedAlertDecorator` classes. This allows the system to dynamically "wrap" standard alerts with special tags (e.g., `[PRIORITY]`) at runtime without altering the base `Alert` class structure.
+
+### Regression Testing & Code Coverage
+Following the refactoring process, regression testing was performed by updating the existing JUnit tests to accommodate the new Singleton memory state and the dynamically decorated alert strings. 
+
+Below is the updated JaCoCo code coverage report verifying that the new architectural components were successfully integrated and tested.
+
+![JaCoCo Coverage Report Part 4](./reports/jacoco_report_part4.png)
+
+**Code Coverage Explanation:**
+As shown, the `com.alerts` and `com.data_management` packages maintain high coverage. The slight increase in overall coverage is due to the new architectural classes (Factory, Strategies, Decorators) being successfully triggered by our updated regression tests. The `com.cardio_generator` packages intentionally remain at 0% coverage as they belong to the legacy Week 1 simulator logic, which falls outside the required testing scope for this phase.
+
 ## Project Members
 
 - Student ID: 6346179

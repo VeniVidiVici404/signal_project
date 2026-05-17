@@ -17,21 +17,21 @@ class FileDataReaderTest {
         tempDir.mkdir();
         File tempFile = new File(tempDir, "test_data.txt");
         
-        // 2. Write dummy patient data into the file (including the % sign to test our parsing)
+        // 2. Write dummy patient data using ID 99 to avoid Singleton test pollution
         try (FileWriter writer = new FileWriter(tempFile)) {
-            writer.write("1, 1700000000000, HeartRate, 75.0\n");
-            writer.write("1, 1700000001000, Saturation, 98.0%\n");
+            writer.write("99, 1700000000000, HeartRate, 75.0\n");
+            writer.write("99, 1700000001000, Saturation, 98.0%\n");
         }
 
         // 3. Set up our storage and reader pointing to the temporary folder
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
         FileDataReader reader = new FileDataReader("temp_test_data");
 
         // 4. Execute the read operation
         reader.readData(storage);
 
-        // 5. Verify the data was parsed and stored correctly
-        List<PatientRecord> records = storage.getRecords(1, 1600000000000L, 1800000000000L);
+        // 5. Verify the data was parsed and stored correctly using ID 99
+        List<PatientRecord> records = storage.getRecords(99, 1600000000000L, 1800000000000L);
         
         assertEquals(2, records.size()); // It should have found both lines
         

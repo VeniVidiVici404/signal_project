@@ -2,7 +2,6 @@ package com.data_management;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
@@ -12,7 +11,7 @@ class DataStorageTest {
 
     @Test
     void testAddAndGetRecords() {
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
         // Add two records at specific timestamps
         storage.addPatientData(1, 100.0, "WhiteBloodCells", 1714376789050L);
         storage.addPatientData(1, 200.0, "WhiteBloodCells", 1714376789051L);
@@ -26,7 +25,7 @@ class DataStorageTest {
 
     @Test
     void testGetRecordsOutsideTimeRange() {
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
         storage.addPatientData(1, 100.0, "WhiteBloodCells", 1714376789050L);
 
         // Try to retrieve records from a time range in the future
@@ -38,7 +37,7 @@ class DataStorageTest {
 
     @Test
     void testMockDataReader() throws IOException {
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorage.getInstance();
         
         // Implementing a quick mock DataReader specifically for this test
         DataReader mockReader = new DataReader() {
